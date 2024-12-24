@@ -6,11 +6,13 @@ import * as argon2 from 'argon2';
 import { ConfigService } from '@nestjs/config';
 import { AuthDto } from './dto/auth.dto';
 import { MailerService } from '@nestjs-modules/mailer'; 
+import { BanqueService } from 'src/banque/banque.service';
 
 @Injectable()
 export class AuthService {
     constructor(
     private usersService: PersonneService,
+      private bankService: BanqueService,
     private jwtService: JwtService,
     private configService: ConfigService,
     private mailerService : MailerService ,
@@ -27,6 +29,17 @@ export class AuthService {
     await this.updateRefreshToken(user._id.toString(), tokens.refreshToken);
     return tokens;
   }
+  	async signInBank(data: AuthDto) {
+    // Check if user exists
+    const user = await this.bankService.findByUsername(data.email);
+    if (!user) throw new BadRequestException('bank does not exist');
+    const passwordMatches = await argon2.verify(user.password, data.password);
+    if (!passwordMatches)
+      throw new BadRequestException('Password is incorrect');
+    const tokens = await this.getTokens(user?._id.toString(), user.username);
+    await this.updateRefreshTokenBank(user?._id.toString(), tokens.refreshToken);
+    return {tokens, user};
+  }
 
 
   	async logout(userId: string) {
@@ -37,7 +50,12 @@ export class AuthService {
     hashData(data: string) {
     return argon2.hash(data);
   }
-
+    async updateRefreshTokenBank(bankId: string, refreshToken: string) {
+    const hashedRefreshToken = await this.hashData(refreshToken);
+    await this.bankService.updateBank(bankId, {
+      refreshToken: hashedRefreshToken,
+    });
+  }
 
     async updateRefreshToken(userId: string, refreshToken: string) {
     const hashedRefreshToken = await this.hashData(refreshToken);

@@ -24,8 +24,11 @@
 
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+Ce projet est un backend développé avec le framework Nest utilisant TypeScript. Il comprend les fonctionnalités suivantes :
 
+Implémentation des opérations CRUD (Create, Read, Update, Delete).
+
+Système d'authentification sécurisé avec JWT (JSON Web Token).
 ## Project setup
 
 ```bash

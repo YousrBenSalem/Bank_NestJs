@@ -67,6 +67,12 @@ export class BanqueController {
         })  
     }
   }
+    @Get("verify/:code")
+  async verifyCode(@Param('code') code: string ,   @Res() res,
+) {
+    return this.banqueService.VerificationCode(code , res );
+
+  }
   @ApiConsumes('multipart/form-data')
   @ApiBody({
     schema:{

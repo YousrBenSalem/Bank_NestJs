@@ -21,5 +21,7 @@ import { MulterModule } from '@nestjs/platform-express';
   ],
   controllers: [BanqueController],
   providers: [BanqueService],
+    exports :[BanqueService]
+
 })
 export class BanqueModule {}

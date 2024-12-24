@@ -6,6 +6,14 @@ import  mongoose, { Document, Types } from "mongoose";
 export class Banque extends Document {
 @Prop()
   nom:string;
+  @Prop()
+  email:string;
+
+  @Prop()
+  password:string;
+
+  @Prop()
+  username:string;
 
   @Prop()
   numero : string ;
@@ -22,6 +30,12 @@ export class Banque extends Document {
   @Prop()
   logo:string;
 
+    @Prop()
+  code :string;
+    @Prop({default : false })
+  verify : boolean ;
+  	@Prop()
+  refreshToken: string;
   @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Personne' }] })
   employeId : Types.ObjectId[]
 

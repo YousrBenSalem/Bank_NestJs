@@ -32,6 +32,17 @@ export class CreateBanqueDto {
     @IsString()
 
    logo: string;
+    @IsString()
 
+     readonly email:string ;
+         @IsString()
+
+      readonly password:string ;
+          @IsString()
+   code : string ;
+    verify : boolean ;
+         refreshToken: string;
+
+        readonly username:string ;
      employeId: Types.ObjectId[]
 }

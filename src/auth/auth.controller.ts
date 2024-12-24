@@ -28,6 +28,12 @@ export class AuthController {
   signin(@Body() data: AuthDto) {
     return this.authService.signIn(data);
   }
+
+     @Post
+   ('signinbank')
+  signinBank(@Body() data: AuthDto) {
+    return this.authService.signInBank(data);
+  }
 @UseGuards(AccessTokenGuard)
 
   @Get('logout')

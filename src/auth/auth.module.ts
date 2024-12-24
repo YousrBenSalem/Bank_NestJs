@@ -7,6 +7,7 @@ import { AccessTokenStrategy } from './strategies/accessToken.strategy';
 import { RefreshTokenStrategy } from './strategies/refreshToken.strategy';
 import { PersonneModule } from 'src/personne/personne.module';
 import { MailerModule } from '@nestjs-modules/mailer';
+import { BanqueModule } from 'src/banque/banque.module';
 
 @Module({
     imports: [JwtModule.register({}) ,
@@ -24,7 +25,7 @@ import { MailerModule } from '@nestjs-modules/mailer';
         from: '"Yosr ben salem" <yousrbensalem@gmail.com>',  
       },  
     
-    }),   PersonneModule],
+    }),   PersonneModule , BanqueModule],
 
   controllers: [AuthController],
   providers: [AuthService , AccessTokenStrategy , RefreshTokenStrategy],
